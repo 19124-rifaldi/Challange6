@@ -10,7 +10,10 @@ interface UserDao {
     @Insert
     fun insertUser(user: UserModel) : Long
 
-    @Query("SELECT username FROM UserModel WHERE UserModel.email = :email AND UserModel.password = :password")
-    fun getPengguna(email : String?, password : String?) : String
+    @Query("SELECT * FROM UserModel WHERE email = :email AND password LIKE :password")
+    suspend fun getPengguna(email : String, password : String) : UserModel
+
+    @Query("SELECT * FROM UserModel WHERE id = :id")
+    suspend fun getUser(id: Int): UserModel
 
 }

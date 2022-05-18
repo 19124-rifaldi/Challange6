@@ -10,15 +10,21 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.binar.challange5.App
+import com.binar.challange5.MainActivity
+import com.binar.challange5.R
 
 import com.binar.challange5.databinding.FragmentHomeBinding
 import com.binar.challange5.model.Result
+import com.binar.challange5.utils.DataStoreManager
 import com.binar.challange5.view.adapter.HomeAdapter
 
 
 class HomeFragment : Fragment() {
-    private val viewModel : HomeViewModel by viewModels()
+    lateinit var viewModel : HomeViewModel
     private lateinit var adapter1: HomeAdapter
     private var _binding: FragmentHomeBinding?=null
     private val binding get() = _binding!!
@@ -30,31 +36,50 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-//        return inflater.inflate(R.layout.fragment_home, container, false)
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
-//
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel = ViewModelProvider(
+            requireActivity(),HomeFactory.getInstance(
+                view.context,
+                (activity?.application as App).repository,
+                DataStoreManager(view.context)
+            ))[HomeViewModel::class.java]
 
-//        val getdata = SharedPref(view.context)
-        login=requireContext().getSharedPreferences("datauser",Context.MODE_PRIVATE)
-        val getdata = login.getString("username","")
 
-        binding.usernameTv.text = "helo , ${getdata}"
 
-        viewModel.movie.observe(requireActivity()) {
+        getUser()
+
+        viewModel.movie.observe(viewLifecycleOwner) {
             showList(it)
         }
-        viewModel.loading.observe(requireActivity()){
+        viewModel.loading.observe(viewLifecycleOwner){
             showLoading(it)
         }
-        login=requireContext().getSharedPreferences("datauser",Context.MODE_PRIVATE)
+
+        binding.logout.setOnClickListener{
+            viewModel.clearDataUser()
+            findNavController().navigate(R.id.action_homeFragment_to_loginFragment)
+        }
+
 
     }
+
+    private fun getUser(){
+        viewModel.getIdUser().observe(viewLifecycleOwner){
+            viewModel.User(it)
+            viewModel.user.observe(viewLifecycleOwner){user->
+                binding.usernameTv.text = "helo , ${user.data?.username}"
+            }
+
+        }
+
+    }
+
+
 
     private fun showLoading(isLoading: Boolean) {
         binding.progressBar.visibility = if (isLoading) {

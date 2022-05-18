@@ -44,7 +44,7 @@ class RegisterFragment : Fragment() {
     private fun regist(){
         binding.regBt.setOnClickListener{
             val client = UserModel(
-                id=null,
+                id= 0,
                 username = binding.usernameEt.text.toString(),
                 password = binding.regpasswordEt.text.toString(),
                 email = binding.regemailEt.text.toString()

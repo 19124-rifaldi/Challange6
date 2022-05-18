@@ -13,7 +13,7 @@ const val BASE_URL=
 
 interface ApiService {
     @GET ("movie/popular?api_key=a3694c11f9e2e2c52ca47878bcd70933")
-    fun getMovie(): Call<GetMovieResponse>
+    suspend fun getMovie(): GetMovieResponse
 
 
 }

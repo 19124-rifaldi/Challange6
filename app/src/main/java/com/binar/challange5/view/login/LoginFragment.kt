@@ -1,6 +1,6 @@
 package com.binar.challange5.view.login
 
-import android.content.Context
+
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -9,15 +9,19 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.binar.challange5.R
 import com.binar.challange5.databinding.FragmentLoginBinding
+import com.binar.challange5.di.Stat
+import com.binar.challange5.room.UserRepo
+import com.binar.challange5.utils.DataStoreManager
 
 
 class LoginFragment : Fragment() {
     private var _binding: FragmentLoginBinding?=null
     private val binding get() = _binding!!
-    private val viewModel : LoginViewModel by viewModels()
+    private lateinit var viewModel: LoginViewModel
 
 
 
@@ -32,58 +36,69 @@ class LoginFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val urepo = UserRepo.getInstance(view.context)
+        val pref = DataStoreManager(view.context)
 
-        toRegist()
+        viewModel = ViewModelProvider(
+            requireActivity(),
+            LoginFActory(urepo!!,pref)
+        )[LoginViewModel::class.java]
+        checkIfLog()
         login1()
+        toRegist()
 
+    }
+
+    private fun checkIfLog(){
+        viewModel.checkIfLogin().observe(viewLifecycleOwner){id->
+
+            if (id !=null && id!=0){
+                binding.progressBarLogin.visibility =View.GONE
+                findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
+            }else{
+                binding.progressBarLogin.visibility =View.GONE
+            }
+
+        }
     }
 
     private fun login1() {
         binding.loginBt.setOnClickListener {
             val email = binding.emailEt.text.toString()
             val pass = binding.passwordEt.text.toString()
-
-            viewModel.login(email, pass)
-
-
-
-//            if (email == "" || pass == "") {
-//                Toast.makeText(requireContext(), "lengkapi data", Toast.LENGTH_LONG).show()
-//            }else if (test==0){
-//                Toast.makeText(requireContext(), "data salah / tidak ditemukan", Toast.LENGTH_LONG).show()
 //
-//            }else{
-//                if(test == 1){
-//                    sharedPref?.saveKey(email,pass,log)
-//                    Log.d("test",email.toString())
-//                    Log.d("test2",pass.toString())
-//                    Log.d("test3",log.toString())
-//                    findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
-//                }
-//            viewModel.regist().observe(requireActivity()){
-//                sharedPref?.saveKey(email,pass,it)
-//            }
+            viewModel.login(email, pass)
+            Log.d("loginfrag","$email dan $pass")
 
-            viewModel.registStat().observe(requireActivity()){
-                if (it == 0){
 
-                    Toast.makeText(requireContext(), "data salah / tidak ditemukan", Toast.LENGTH_LONG).show()
-                }else if(email == "" || pass == ""){
-                    Toast.makeText(requireContext(), "lengkapi data", Toast.LENGTH_LONG).show()
-                }else if (it == 1){
-                    viewModel.regist().observe(requireActivity()){
-                        val save = requireContext().getSharedPreferences("datauser",Context.MODE_PRIVATE)
-                        val savep = save.edit()
-                        savep.putString("username",it.toString())
-                        Log.d("log",it.toString())
-                        savep.apply()
+
+        if(email == "" || pass == ""){
+            Toast.makeText(requireContext(), "lengkapi data", Toast.LENGTH_LONG).show()
+        }
+
+
+
+            viewModel.loginStat.observe(viewLifecycleOwner){ user ->
+            when (user.status){
+                Stat.SUCCESS -> {
+                    if (user.data == null) {
+
+                        Toast.makeText(
+                            requireContext(),
+                            "data salah / tidak ditemukan",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }else {
+                        viewModel.saveUserDataStore( user.data.id)
+                        findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
                     }
-
-//                    val log = viewModel.regist().toString()
-//                    Log.d("log",log)
-
-                    findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
                 }
+                Stat.ERROR -> {
+                    Toast.makeText(requireContext(), user.message, Toast.LENGTH_SHORT).show()
+                }
+                else -> {}
+            }
+
             }
         }
 

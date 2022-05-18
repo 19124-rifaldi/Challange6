@@ -10,19 +10,37 @@ abstract class UserDatabase : RoomDatabase() {
     abstract fun userDao(): UserDao
 
     companion object {
+        @Volatile
         private var INSTANCE: UserDatabase? = null
 
-        fun getInstance(context: Context): UserDatabase? {
-            if (INSTANCE == null) {
-                synchronized(UserDatabase::class) {
-                    INSTANCE = Room.databaseBuilder(
+        fun getInstance(context: Context): UserDatabase {
+            synchronized(this) {
+                var instance = INSTANCE
+                if (instance == null) {
+                    instance = Room.databaseBuilder(
                         context.applicationContext,
                         UserDatabase::class.java,
-                        "User.db"
-                    ).build()
+                        "user"
+                    )
+                        .fallbackToDestructiveMigration()
+                        .build()
+                    INSTANCE = instance
                 }
+                return instance
             }
-            return INSTANCE
+
+
+
+//            if (INSTANCE == null) {
+//                synchronized(UserDatabase::class) {
+//                    INSTANCE = Room.databaseBuilder(
+//                        context.applicationContext,
+//                        UserDatabase::class.java,
+//                        "User.db"
+//                    ).build()
+//                }
+//            }
+//            return INSTANCE
         }
 
         fun destroyInstance() {
