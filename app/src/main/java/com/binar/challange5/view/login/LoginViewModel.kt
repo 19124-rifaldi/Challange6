@@ -25,8 +25,8 @@ class LoginViewModel (
             _loginStat.postValue(Resource.loading(null))
 
             try {
-                val db = repository.verifyLogin(email,password)
-                _loginStat.postValue(Resource.success(db,0))
+                val du = repository.verifyLogin(email,password)
+                _loginStat.postValue(Resource.success(du,0))
 
             }catch (exception : Exception){
                 _loginStat.postValue(Resource.error(null,exception.message!!))

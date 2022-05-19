@@ -5,4 +5,7 @@
     <string name="login_text">Login</string>
     <string name="register_txt">register</string>
     <string name="rating">Rating</string>
+    <string name="name_tv">Name</string>
+    <string name="email">Email</string>
+    <string name="update_profile">Update Profile</string>
 </resources>

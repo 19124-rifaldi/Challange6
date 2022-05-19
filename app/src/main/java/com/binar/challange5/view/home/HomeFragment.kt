@@ -61,8 +61,7 @@ class HomeFragment : Fragment() {
         }
 
         binding.logout.setOnClickListener{
-            viewModel.clearDataUser()
-            findNavController().navigate(R.id.action_homeFragment_to_loginFragment)
+            findNavController().navigate(R.id.action_homeFragment_to_profileFragment)
         }
 
 
