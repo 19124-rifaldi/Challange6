@@ -1,5 +1,5 @@
 # Challange6
 belum ada : 
-profile,
+update profile,
 favorit,
 tambah foto
