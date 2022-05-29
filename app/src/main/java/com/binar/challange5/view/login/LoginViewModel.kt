@@ -1,9 +1,7 @@
 package com.binar.challange5.view.login
 
-import android.content.SharedPreferences
-import android.util.Log
 import androidx.lifecycle.*
-import com.binar.challange5.di.Resource
+import com.binar.challange5.resource.Resource
 import com.binar.challange5.room.UserModel
 import com.binar.challange5.room.UserRepo
 import com.binar.challange5.utils.DataStoreManager

@@ -21,10 +21,11 @@ import com.binar.challange5.databinding.FragmentHomeBinding
 import com.binar.challange5.model.Result
 import com.binar.challange5.utils.DataStoreManager
 import com.binar.challange5.view.adapter.HomeAdapter
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class HomeFragment : Fragment() {
-    lateinit var viewModel : HomeViewModel
+    private val viewModel: HomeViewModel by viewModel()
     private lateinit var adapter1: HomeAdapter
     private var _binding: FragmentHomeBinding?=null
     private val binding get() = _binding!!
@@ -42,12 +43,12 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(
-            requireActivity(),HomeFactory.getInstance(
-                view.context,
-                (activity?.application as App).repository,
-                DataStoreManager(view.context)
-            ))[HomeViewModel::class.java]
+//        viewModel = ViewModelProvider(
+//            requireActivity(),HomeFactory.getInstance(
+//                view.context,
+//                (activity?.application as App).repository,
+//                DataStoreManager(view.context)
+//            ))[HomeViewModel::class.java]
 
 
 

@@ -8,20 +8,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.binar.challange5.R
 import com.binar.challange5.databinding.FragmentLoginBinding
-import com.binar.challange5.di.Stat
+import com.binar.challange5.resource.Stat
 import com.binar.challange5.room.UserRepo
 import com.binar.challange5.utils.DataStoreManager
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class LoginFragment : Fragment() {
     private var _binding: FragmentLoginBinding?=null
     private val binding get() = _binding!!
-    private lateinit var viewModel: LoginViewModel
+    private val viewModel: LoginViewModel by viewModel()
 
 
 
@@ -36,13 +37,13 @@ class LoginFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val urepo = UserRepo.getInstance(view.context)
-        val pref = DataStoreManager(view.context)
-
-        viewModel = ViewModelProvider(
-            requireActivity(),
-            LoginFActory(urepo!!,pref)
-        )[LoginViewModel::class.java]
+//        val urepo = UserRepo.getInstance(view.context)
+//        val pref = DataStoreManager(view.context)
+//
+//        viewModel = ViewModelProvider(
+//            requireActivity(),
+//            LoginFActory(urepo!!,pref)
+//        )[LoginViewModel::class.java]
         checkIfLog()
         login1()
         toRegist()

@@ -12,12 +12,13 @@ import com.binar.challange5.databinding.FragmentLoginBinding
 import com.binar.challange5.databinding.FragmentProfileBinding
 import com.binar.challange5.utils.DataStoreManager
 import kotlinx.coroutines.delay
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class ProfileFragment : Fragment() {
     private var _binding: FragmentProfileBinding?=null
     private val binding get() = _binding!!
-    private lateinit var viewModel: ProfileViewModel
+    private val viewModel: ProfileViewModel by viewModel()
 
 
     override fun onCreateView(
@@ -30,9 +31,9 @@ class ProfileFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val pref = DataStoreManager(view.context)
-        val factory = ProfilViewModelProvider.getInstance(view.context, pref)
-        viewModel= ViewModelProvider(requireActivity(), factory)[ProfileViewModel::class.java]
+//        val pref = DataStoreManager(view.context)
+//        val factory = ProfilViewModelProvider.getInstance(view.context, pref)
+//        viewModel= ViewModelProvider(requireActivity(), factory)[ProfileViewModel::class.java]
 
 
         viewModel.loading.observe(viewLifecycleOwner){

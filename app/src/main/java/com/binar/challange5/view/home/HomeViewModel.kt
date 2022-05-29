@@ -2,10 +2,8 @@ package com.binar.challange5.view.home
 
 import android.util.Log
 import androidx.lifecycle.*
-import com.binar.challange5.model.GetMovieResponse
 import com.binar.challange5.model.Result
 import com.binar.challange5.model.movie_repo.Repository
-import com.binar.challange5.network.ApiClient
 import com.binar.challange5.room.UserModel
 import com.binar.challange5.room.UserRepo
 import com.binar.challange5.utils.DataStoreManager
@@ -13,7 +11,7 @@ import com.binar.challange5.utils.DataStoreManager
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import com.binar.challange5.di.Resource
+import com.binar.challange5.resource.Resource
 
 
 class HomeViewModel(

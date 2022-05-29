@@ -1,12 +1,11 @@
 package com.binar.challange5.view.profile
 
 import androidx.lifecycle.*
-import com.binar.challange5.di.Resource
+import com.binar.challange5.resource.Resource
 import com.binar.challange5.room.UserModel
 import com.binar.challange5.room.UserRepo
 import com.binar.challange5.utils.DataStoreManager
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.lang.Exception

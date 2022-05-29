@@ -1,4 +1,4 @@
-package com.binar.challange5.di
+package com.binar.challange5.resource
 
 enum class Stat {
 

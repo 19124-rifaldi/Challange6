@@ -8,8 +8,8 @@ import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
-const val BASE_URL=
-    "https://api.themoviedb.org/3/"
+//const val BASE_URL=
+//    "https://api.themoviedb.org/3/"
 
 interface ApiService {
     @GET ("movie/popular?api_key=a3694c11f9e2e2c52ca47878bcd70933")
@@ -33,11 +33,16 @@ object ApiClient{
         .build()
     val instance : ApiService by lazy {
         val retrofit = Retrofit.Builder()
-            .baseUrl(BASE_URL)
+            .baseUrl(Link.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .client(client)
             .build()
         retrofit.create(ApiService::class.java)
 
     }
+}
+
+object Link{
+    const val BASE_URL=
+        "https://api.themoviedb.org/3/"
 }

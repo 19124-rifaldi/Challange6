@@ -11,20 +11,44 @@ android {
 
     defaultConfig {
         applicationId "com.binar.challange5"
-        minSdk 23
+        minSdk 22
         targetSdk 32
         versionCode 1
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
-
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    flavorDimensions "dimension"
+    productFlavors{
+        free{
+            dimension "dimension"
+//            manifestPlaceHolders variant: 'Free'
+            applicationIdSuffix ".free"
+            versionNameSuffix "-free"
+        }
+        paid{
+            dimension"dimension"
+//            manifestPlaceHolders variant: 'Paid'
+            applicationIdSuffix ".paid"
+            versionNameSuffix "-paid"
+        }
+    }
+//    variantFilter {variant ->
+//        def name_types = variant.flavors*.name
+//        def name = name_types.join()
+//
+//        if (variant.buildType.name== "release" && name.containts("free")){
+//            setIgnore(true)
+//        }
+//    }
+
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -115,7 +139,7 @@ dependencies {
 
     implementation "androidx.datastore:datastore-preferences:1.0.0"
 
-
+    implementation 'io.insert-koin:koin-android:3.1.5'
 
 
 

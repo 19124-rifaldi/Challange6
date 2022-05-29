@@ -1,4 +1,4 @@
-package com.binar.challange5.di
+package com.binar.challange5.resource
 
 data class Resource<out T>(val status: Stat, val data: T?, val id: Long, val message: String?) {
     companion object {
