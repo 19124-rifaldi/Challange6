@@ -64,6 +64,9 @@ class HomeFragment : Fragment() {
         binding.logout.setOnClickListener{
             findNavController().navigate(R.id.action_homeFragment_to_profileFragment)
         }
+        binding.favBt.setOnClickListener {
+            findNavController().navigate(R.id.action_homeFragment_to_favoriteFragment)
+        }
 
 
     }

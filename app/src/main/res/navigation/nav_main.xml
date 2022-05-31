@@ -19,6 +19,9 @@
         <action
             android:id="@+id/action_homeFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_favoriteFragment"
+            app:destination="@id/favoriteFragment" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
@@ -74,4 +77,9 @@
             android:name="dataUser"
             app:argType="com.binar.challange5.room.UserModel" />
     </fragment>
+    <fragment
+        android:id="@+id/favoriteFragment"
+        android:name="com.binar.challange5.view.favorite.FavoriteFragment"
+        android:label="fragment_favorite"
+        tools:layout="@layout/fragment_favorite" />
 </navigation>
