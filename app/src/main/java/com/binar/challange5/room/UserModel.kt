@@ -12,5 +12,6 @@ data class UserModel(
     @PrimaryKey(autoGenerate = true) var id:Int =0,
     @ColumnInfo(name = "email") var email : String ,
     @ColumnInfo(name = "username") var username : String ,
-    @ColumnInfo(name = "password") var password : String
+    @ColumnInfo(name = "password") var password : String ,
+    @ColumnInfo(name = "photo") var photo : String
 ):Parcelable

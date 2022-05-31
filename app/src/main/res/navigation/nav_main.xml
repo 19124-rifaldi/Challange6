@@ -70,5 +70,8 @@
         <action
             android:id="@+id/action_updateProfileFragment_to_profileFragment"
             app:destination="@id/profileFragment" />
+        <argument
+            android:name="dataUser"
+            app:argType="com.binar.challange5.room.UserModel" />
     </fragment>
 </navigation>

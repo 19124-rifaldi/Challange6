@@ -47,7 +47,8 @@ class RegisterFragment : Fragment() {
                 id= 0,
                 username = binding.usernameEt.text.toString(),
                 password = binding.regpasswordEt.text.toString(),
-                email = binding.regemailEt.text.toString()
+                email = binding.regemailEt.text.toString(),
+                photo = ""
             )
 
             if (binding.usernameEt.text.toString()==""||

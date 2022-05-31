@@ -7,6 +7,7 @@ import com.binar.challange5.view.detail.DetailViewModel
 import com.binar.challange5.view.home.HomeViewModel
 import com.binar.challange5.view.login.LoginViewModel
 import com.binar.challange5.view.profile.ProfileViewModel
+import com.binar.challange5.view.profile.UpdateProfileViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.scope.get
 import org.koin.dsl.module
@@ -28,4 +29,5 @@ import org.koin.dsl.module
         viewModel { HomeViewModel(get(), get(), get()) }
         viewModel { LoginViewModel(get(), get()) }
         viewModel { ProfileViewModel(get(), get()) }
+        viewModel { UpdateProfileViewModel(get(),get()) }
     }

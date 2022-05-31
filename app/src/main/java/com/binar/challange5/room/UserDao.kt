@@ -1,8 +1,6 @@
 package com.binar.challange5.room
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.room.*
 
 @Dao
 interface UserDao {
@@ -15,5 +13,8 @@ interface UserDao {
 
     @Query("SELECT * FROM UserModel WHERE id = :id")
     suspend fun getUser(id: Int): UserModel
+
+    @Update
+    suspend fun update(user: UserModel)
 
 }

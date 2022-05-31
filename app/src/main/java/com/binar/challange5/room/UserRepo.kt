@@ -1,6 +1,8 @@
 package com.binar.challange5.room
 
 import android.content.Context
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 class UserRepo(private val userDao: UserDao) {
 
@@ -24,6 +26,12 @@ class UserRepo(private val userDao: UserDao) {
 
     suspend fun getUser(id: Int): UserModel {
         return userDao.getUser(id)
+    }
+
+    suspend fun update(user: UserModel) {
+        withContext(Dispatchers.IO) {
+            userDao.update(user)
+        }
     }
 
 

@@ -10,7 +10,9 @@ import androidx.navigation.fragment.findNavController
 import com.binar.challange5.R
 import com.binar.challange5.databinding.FragmentLoginBinding
 import com.binar.challange5.databinding.FragmentProfileBinding
+import com.binar.challange5.room.UserModel
 import com.binar.challange5.utils.DataStoreManager
+import com.bumptech.glide.Glide
 import kotlinx.coroutines.delay
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -34,6 +36,8 @@ class ProfileFragment : Fragment() {
 //        val pref = DataStoreManager(view.context)
 //        val factory = ProfilViewModelProvider.getInstance(view.context, pref)
 //        viewModel= ViewModelProvider(requireActivity(), factory)[ProfileViewModel::class.java]
+
+
 
 
         viewModel.loading.observe(viewLifecycleOwner){
@@ -62,6 +66,12 @@ class ProfileFragment : Fragment() {
             binding.apply {
                 emailTv.text= data.data?.email.toString()
                 nameTv.text = data.data?.username
+
+                if (data.data?.photo==null){
+                    Glide.with(binding.root).load(R.drawable.ic_launcher_background)
+                        .circleCrop()
+                        .into(imageButton)
+                }
             }
         }
     }
